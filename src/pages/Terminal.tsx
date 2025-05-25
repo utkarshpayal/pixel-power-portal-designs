@@ -1,9 +1,12 @@
-
-import { useState, useEffect, useRef } from 'react';
-import { Card } from '@/components/ui/card';
+import { useState, useRef, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Terminal as TerminalIcon, Cpu, Zap, Activity } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Terminal as TerminalIcon, Play, Square, Upload, Download, Settings, Monitor } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const Terminal = () => {
   const [commands, setCommands] = useState([
@@ -189,10 +192,10 @@ const Terminal = () => {
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      <div className="pt-24 px-4 max-w-7xl mx-auto">
+      <div className="flex-1 pt-24 px-4 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 animate-fade-in">
           <h1 className="text-4xl font-bold text-white mb-4 flex items-center">
@@ -328,6 +331,8 @@ const Terminal = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

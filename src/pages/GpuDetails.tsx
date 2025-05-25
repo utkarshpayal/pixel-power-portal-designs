@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Cpu, Zap, Clock, Star, MapPin, Shield, Activity, Users, Heart, MessageCircle, Copy, Share2 } from 'lucide-react';
+import { ArrowLeft, Cpu, Zap, Clock, Star, MapPin, Shield, Activity, Users } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const GpuDetails = () => {
   const { id } = useParams();
@@ -73,10 +74,10 @@ const GpuDetails = () => {
   const selectedPrice = durations.find(d => d.value === selectedDuration)?.price || 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      <div className="pt-20 px-4 max-w-7xl mx-auto pb-12">
+      <div className="flex-1 pt-24 px-4 max-w-7xl mx-auto">
         {/* Improved Back Button */}
         <Link 
           to="/marketplace" 
@@ -383,6 +384,8 @@ const GpuDetails = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };

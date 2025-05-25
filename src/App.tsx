@@ -9,6 +9,7 @@ import Marketplace from "./pages/Marketplace";
 import GpuDetails from "./pages/GpuDetails";
 import Terminal from "./pages/Terminal";
 import Dashboard from "./pages/Dashboard";
+import Documentation from "./pages/Documentation";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,8 @@ const App = () => (
           <Route path="/gpu/:id" element={<GpuDetails />} />
           <Route path="/terminal" element={<Terminal />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/docs" element={<Documentation />} />
+          <Route path="/docs/:section" element={<Documentation />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

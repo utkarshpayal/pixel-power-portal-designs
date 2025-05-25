@@ -1,18 +1,20 @@
-
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { Link } from 'react-router-dom';
-import { Search, Filter, Cpu, Zap, Clock, Star, MapPin } from 'lucide-react';
+import { Slider } from '@/components/ui/slider';
+import { Cpu, Search, Filter, Star, Clock, MapPin, Zap } from 'lucide-react';
 import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
 
 const Marketplace = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortBy, setSortBy] = useState('price');
-  const [filterType, setFilterType] = useState('all');
+  const [sortBy, setSortBy] = useState('price-low');
+  const [priceRange, setPriceRange] = useState([0, 10]);
+  const [selectedProvider, setSelectedProvider] = useState('all');
 
   const gpuListings = [
     {
@@ -101,10 +103,10 @@ const Marketplace = () => {
   );
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       
-      <div className="pt-24 px-4 max-w-7xl mx-auto">
+      <div className="flex-1 pt-24 px-4 max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 animate-fade-in">
           <h1 className="text-4xl font-bold text-white mb-4">
@@ -131,13 +133,14 @@ const Marketplace = () => {
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
                 <SelectContent className="bg-gray-900 border-white/20">
-                  <SelectItem value="price">Price (Low to High)</SelectItem>
+                  <SelectItem value="price-low">Price (Low to High)</SelectItem>
+                  <SelectItem value="price-high">Price (High to Low)</SelectItem>
                   <SelectItem value="performance">Performance</SelectItem>
                   <SelectItem value="rating">Rating</SelectItem>
                   <SelectItem value="availability">Availability</SelectItem>
                 </SelectContent>
               </Select>
-              <Select value={filterType} onValueChange={setFilterType}>
+              <Select value={selectedProvider} onValueChange={setSelectedProvider}>
                 <SelectTrigger className="w-full md:w-48 bg-black/20 border-white/20 text-white">
                   <Filter className="h-4 w-4" />
                   <SelectValue placeholder="Filter" />
@@ -149,6 +152,11 @@ const Marketplace = () => {
                   <SelectItem value="available">Available Only</SelectItem>
                 </SelectContent>
               </Select>
+              <Slider
+                value={priceRange}
+                onValueChange={setPriceRange}
+                className="w-full md:w-48 bg-black/20 border-white/20 text-white"
+              />
             </div>
           </CardContent>
         </Card>
@@ -231,6 +239,8 @@ const Marketplace = () => {
           </Button>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
