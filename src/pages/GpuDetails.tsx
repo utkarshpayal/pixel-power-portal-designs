@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, Cpu, Zap, Clock, Star, MapPin, Shield, Activity, Users, Heart, MessageCircle, Share2 } from 'lucide-react';
+import { ArrowLeft, Cpu, Zap, Clock, Star, MapPin, Shield, Activity, Users, Heart, MessageCircle, Copy, Share2 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 
 const GpuDetails = () => {
@@ -73,195 +73,210 @@ const GpuDetails = () => {
   const selectedPrice = durations.find(d => d.value === selectedDuration)?.price || 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <Navigation />
       
       <div className="pt-20 px-4 max-w-7xl mx-auto pb-12">
-        {/* Simple Back Button */}
+        {/* Improved Back Button */}
         <Link 
           to="/marketplace" 
-          className="inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors mb-6"
+          className="inline-flex items-center text-neon-blue hover:text-neon-purple transition-all duration-300 mb-8 group animate-fade-in hover:bg-white/5 px-3 py-2 rounded-lg"
         >
-          <ArrowLeft className="h-4 w-4 mr-2" />
+          <ArrowLeft className="h-4 w-4 mr-2 group-hover:-translate-x-1 transition-transform" />
           Back to Marketplace
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Header Card */}
-            <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+          <div className="lg:col-span-2 space-y-8">
+            {/* Enhanced Header */}
+            <Card className="glass glow-border animate-fade-in border-2 border-neon-blue/20 hover:border-neon-blue/40 transition-all duration-300">
               <CardHeader className="pb-4">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-3">
-                      <CardTitle className="text-2xl lg:text-3xl text-gray-900 dark:text-white font-semibold">
+                      <CardTitle className="text-3xl lg:text-4xl text-white font-bold">
                         {gpu.name}
                       </CardTitle>
                       <Button
                         variant="ghost"
                         size="sm"
                         onClick={() => setIsFavorited(!isFavorited)}
-                        className="text-gray-400 hover:text-red-500"
+                        className={`hover:bg-white/10 ${isFavorited ? 'text-red-400' : 'text-gray-400'}`}
                       >
-                        <Heart className={`h-5 w-5 ${isFavorited ? 'fill-red-500 text-red-500' : ''}`} />
+                        <Heart className={`h-5 w-5 ${isFavorited ? 'fill-current' : ''}`} />
                       </Button>
                     </div>
-                    <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
-                      Provided by <span className="font-medium text-blue-600 dark:text-blue-400">{gpu.provider}</span>
+                    <p className="text-gray-300 text-lg mb-4">
+                      Provided by <span className="text-neon-blue font-semibold">{gpu.provider}</span>
                     </p>
-                    <div className="flex flex-wrap items-center gap-4">
+                    <div className="flex flex-wrap items-center gap-6">
                       <div className="flex items-center space-x-2">
                         <div className="flex items-center space-x-1">
                           {[...Array(5)].map((_, i) => (
                             <Star 
                               key={i} 
-                              className={`h-4 w-4 ${i < Math.floor(gpu.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} 
+                              className={`h-4 w-4 ${i < Math.floor(gpu.rating) ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} 
                             />
                           ))}
                         </div>
-                        <span className="text-gray-900 dark:text-white font-medium">{gpu.rating}</span>
-                        <span className="text-gray-500">({gpu.reviews} reviews)</span>
+                        <span className="text-white font-semibold">{gpu.rating}</span>
+                        <span className="text-gray-400">({gpu.reviews} reviews)</span>
                       </div>
-                      <Badge className="bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-green-200 dark:border-green-700">
-                        <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                      <Badge className="bg-green-500/20 text-green-400 border-green-500/50 px-3 py-1">
+                        <div className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></div>
                         {gpu.availability}
                       </Badge>
-                      <div className="flex items-center space-x-2 text-gray-600 dark:text-gray-300">
-                        <MapPin className="h-4 w-4" />
+                      <div className="flex items-center space-x-2 text-gray-300">
+                        <MapPin className="h-4 w-4 text-neon-green" />
                         <span>{gpu.location}</span>
                       </div>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
+                    <div className="text-4xl font-bold bg-gradient-to-r from-neon-blue to-neon-purple bg-clip-text text-transparent">
                       ${gpu.price}
                     </div>
-                    <div className="text-gray-500 text-sm">per hour</div>
+                    <div className="text-gray-400 text-sm">per hour</div>
                   </div>
                 </div>
               </CardHeader>
             </Card>
 
-            {/* Simple Tabs */}
-            <Tabs defaultValue="overview">
-              <TabsList className="grid w-full grid-cols-3 bg-gray-100 dark:bg-gray-800">
-                <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="specs">Specifications</TabsTrigger>
-                <TabsTrigger value="reviews">Reviews</TabsTrigger>
+            {/* Enhanced Tabs */}
+            <Tabs defaultValue="overview" className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <TabsList className="grid w-full grid-cols-3 bg-black/30 border border-white/10 p-1 rounded-xl">
+                <TabsTrigger 
+                  value="overview" 
+                  className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue data-[state=active]:border data-[state=active]:border-neon-blue/30 rounded-lg transition-all duration-300"
+                >
+                  Overview
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="specs" 
+                  className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue data-[state=active]:border data-[state=active]:border-neon-blue/30 rounded-lg transition-all duration-300"
+                >
+                  Specifications
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="reviews" 
+                  className="data-[state=active]:bg-neon-blue/20 data-[state=active]:text-neon-blue data-[state=active]:border data-[state=active]:border-neon-blue/30 rounded-lg transition-all duration-300"
+                >
+                  Reviews
+                </TabsTrigger>
               </TabsList>
 
               <TabsContent value="overview" className="space-y-6 mt-6">
-                <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <Card className="glass glow-border hover:bg-white/5 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="text-gray-900 dark:text-white">About This GPU</CardTitle>
+                    <CardTitle className="text-white text-xl">About This GPU</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{gpu.description}</p>
+                    <p className="text-gray-300 leading-relaxed text-lg">{gpu.description}</p>
                   </CardContent>
                 </Card>
 
-                <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <Card className="glass glow-border hover:bg-white/5 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="text-gray-900 dark:text-white">Performance Metrics</CardTitle>
+                    <CardTitle className="text-white text-xl">Performance Metrics</CardTitle>
                   </CardHeader>
                   <CardContent className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                      <Activity className="h-8 w-8 text-blue-600 dark:text-blue-400 mx-auto mb-3" />
-                      <div className="text-xl font-semibold text-gray-900 dark:text-white mb-1">{gpu.uptime}</div>
-                      <div className="text-gray-500 text-sm">Uptime</div>
+                    <div className="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                      <Activity className="h-10 w-10 text-neon-blue mx-auto mb-3" />
+                      <div className="text-2xl font-bold text-white mb-1">{gpu.uptime}</div>
+                      <div className="text-gray-400 text-sm">Uptime</div>
                     </div>
-                    <div className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                      <Users className="h-8 w-8 text-green-600 dark:text-green-400 mx-auto mb-3" />
-                      <div className="text-xl font-semibold text-gray-900 dark:text-white mb-1">{gpu.totalRentals}</div>
-                      <div className="text-gray-500 text-sm">Total Rentals</div>
+                    <div className="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                      <Users className="h-10 w-10 text-neon-purple mx-auto mb-3" />
+                      <div className="text-2xl font-bold text-white mb-1">{gpu.totalRentals}</div>
+                      <div className="text-gray-400 text-sm">Total Rentals</div>
                     </div>
-                    <div className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                      <Zap className="h-8 w-8 text-purple-600 dark:text-purple-400 mx-auto mb-3" />
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{gpu.compute}</div>
-                      <div className="text-gray-500 text-sm">Compute Power</div>
+                    <div className="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                      <Zap className="h-10 w-10 text-neon-green mx-auto mb-3" />
+                      <div className="text-xl font-bold text-white mb-1">{gpu.compute}</div>
+                      <div className="text-gray-400 text-sm">Compute Power</div>
                     </div>
-                    <div className="text-center p-4 rounded-lg bg-gray-50 dark:bg-gray-700">
-                      <Shield className="h-8 w-8 text-orange-600 dark:text-orange-400 mx-auto mb-3" />
-                      <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Verified</div>
-                      <div className="text-gray-500 text-sm">Provider</div>
+                    <div className="text-center p-4 rounded-lg bg-white/5 hover:bg-white/10 transition-all duration-300">
+                      <Shield className="h-10 w-10 text-neon-pink mx-auto mb-3" />
+                      <div className="text-lg font-bold text-white mb-1">Verified</div>
+                      <div className="text-gray-400 text-sm">Provider</div>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
 
               <TabsContent value="specs" className="space-y-6 mt-6">
-                <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                <Card className="glass glow-border hover:bg-white/5 transition-all duration-300">
                   <CardHeader>
-                    <CardTitle className="text-gray-900 dark:text-white">Technical Specifications</CardTitle>
+                    <CardTitle className="text-white text-xl">Technical Specifications</CardTitle>
                   </CardHeader>
-                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Architecture</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.specs.architecture}</span>
+                  <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Architecture</span>
+                        <span className="text-white font-semibold">{gpu.specs.architecture}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Memory</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.memory}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Memory</span>
+                        <span className="text-white font-semibold">{gpu.memory}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">CUDA Cores</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.cores}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">CUDA Cores</span>
+                        <span className="text-white font-semibold">{gpu.cores}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">RT Cores</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.specs.rtCores}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">RT Cores</span>
+                        <span className="text-white font-semibold">{gpu.specs.rtCores}</span>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Base Clock</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.specs.baseClock}</span>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Base Clock</span>
+                        <span className="text-white font-semibold">{gpu.specs.baseClock}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Boost Clock</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.specs.boostClock}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Boost Clock</span>
+                        <span className="text-white font-semibold">{gpu.specs.boostClock}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Memory Bandwidth</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.bandwidth}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Memory Bandwidth</span>
+                        <span className="text-white font-semibold">{gpu.bandwidth}</span>
                       </div>
-                      <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                        <span className="text-gray-600 dark:text-gray-300 font-medium">Tensor Cores</span>
-                        <span className="text-gray-900 dark:text-white font-semibold">{gpu.specs.tensorCores}</span>
+                      <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                        <span className="text-gray-400 font-medium">Tensor Cores</span>
+                        <span className="text-white font-semibold">{gpu.specs.tensorCores}</span>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
               </TabsContent>
 
-              <TabsContent value="reviews" className="space-y-4 mt-6">
+              <TabsContent value="reviews" className="space-y-6 mt-6">
                 {reviews.map((review, index) => (
-                  <Card key={index} className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+                  <Card key={index} className="glass glow-border hover:bg-white/5 transition-all duration-300">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                            <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+                          <div className="w-10 h-10 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center">
+                            <span className="text-white font-semibold text-sm">
                               {review.user.split(' ').map(n => n[0]).join('')}
                             </span>
                           </div>
                           <div>
-                            <div className="font-medium text-gray-900 dark:text-white">{review.user}</div>
+                            <div className="font-semibold text-white">{review.user}</div>
                             <div className="flex items-center space-x-1">
                               {[...Array(5)].map((_, i) => (
                                 <Star 
                                   key={i} 
-                                  className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`} 
+                                  className={`h-4 w-4 ${i < review.rating ? 'text-yellow-400 fill-yellow-400' : 'text-gray-600'}`} 
                                 />
                               ))}
                             </div>
                           </div>
                         </div>
-                        <span className="text-gray-500 text-sm">{review.date}</span>
+                        <span className="text-gray-400 text-sm">{review.date}</span>
                       </div>
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{review.comment}</p>
+                      <p className="text-gray-300 leading-relaxed">{review.comment}</p>
                     </CardContent>
                   </Card>
                 ))}
@@ -269,31 +284,31 @@ const GpuDetails = () => {
             </Tabs>
           </div>
 
-          {/* Sidebar */}
+          {/* Enhanced Sidebar */}
           <div className="space-y-6">
             {/* Rental Options */}
-            <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            <Card className="glass glow-border animate-fade-in border-2 border-neon-purple/20 hover:border-neon-purple/40 transition-all duration-300" style={{ animationDelay: '0.3s' }}>
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-white">Choose Duration</CardTitle>
-                <p className="text-gray-500 text-sm">Select your rental period</p>
+                <CardTitle className="text-white text-xl">Choose Duration</CardTitle>
+                <p className="text-gray-400 text-sm">Select your rental period</p>
               </CardHeader>
               <CardContent className="space-y-3">
                 {durations.map((duration) => (
                   <div 
                     key={duration.value}
-                    className={`p-4 rounded-lg border cursor-pointer transition-all ${
+                    className={`p-4 rounded-lg border cursor-pointer transition-all duration-300 hover:scale-[1.02] ${
                       selectedDuration === duration.value 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' 
-                        : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
+                        ? 'border-neon-blue bg-neon-blue/20 shadow-lg shadow-neon-blue/20' 
+                        : 'border-white/20 hover:border-white/40 hover:bg-white/5'
                     }`}
                     onClick={() => setSelectedDuration(duration.value)}
                   >
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-900 dark:text-white font-medium">{duration.label}</span>
+                      <span className="text-white font-medium">{duration.label}</span>
                       <div className="text-right">
-                        <div className="text-gray-900 dark:text-white font-semibold">${duration.price}</div>
+                        <div className="text-white font-bold text-lg">${duration.price}</div>
                         {duration.discount && (
-                          <div className="text-green-600 dark:text-green-400 text-sm">Save {duration.discount}</div>
+                          <div className="text-green-400 text-sm font-medium">Save {duration.discount}</div>
                         )}
                       </div>
                     </div>
@@ -302,66 +317,66 @@ const GpuDetails = () => {
               </CardContent>
             </Card>
 
-            {/* Action Buttons */}
-            <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            {/* Enhanced Action Buttons */}
+            <Card className="glass glow-border animate-fade-in border-2 border-green-500/20 hover:border-green-500/40 transition-all duration-300" style={{ animationDelay: '0.4s' }}>
               <CardContent className="p-6 space-y-4">
                 <div className="text-center mb-4">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                  <div className="text-2xl font-bold text-white mb-1">
                     Total: ${selectedPrice}
                   </div>
-                  <div className="text-gray-500 text-sm">
+                  <div className="text-gray-400 text-sm">
                     for {durations.find(d => d.value === selectedDuration)?.label}
                   </div>
                 </div>
-                <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 font-medium">
-                  <Zap className="h-4 w-4 mr-2" />
+                <Button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white text-lg py-4 font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
+                  <Zap className="h-5 w-5 mr-2" />
                   Rent GPU Now
                 </Button>
                 <div className="grid grid-cols-2 gap-3">
                   <Button 
                     variant="outline" 
-                    className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300"
+                    className="border-neon-green text-neon-green hover:bg-neon-green/10 transition-all duration-300"
                     onClick={() => setIsFavorited(!isFavorited)}
                   >
-                    <Heart className={`h-4 w-4 mr-2 ${isFavorited ? 'fill-current text-red-500' : ''}`} />
+                    <Heart className={`h-4 w-4 mr-2 ${isFavorited ? 'fill-current' : ''}`} />
                     Save
                   </Button>
-                  <Button variant="outline" className="border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
+                  <Button variant="outline" className="border-white/30 text-white hover:bg-white/10 transition-all duration-300">
                     <Share2 className="h-4 w-4 mr-2" />
                     Share
                   </Button>
                 </div>
-                <Button variant="outline" className="w-full border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300">
+                <Button variant="outline" className="w-full border-neon-blue text-neon-blue hover:bg-neon-blue/10 transition-all duration-300">
                   <MessageCircle className="h-4 w-4 mr-2" />
                   Contact Provider
                 </Button>
               </CardContent>
             </Card>
 
-            {/* Provider Info */}
-            <Card className="border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+            {/* Enhanced Provider Info */}
+            <Card className="glass glow-border animate-fade-in hover:bg-white/5 transition-all duration-300" style={{ animationDelay: '0.5s' }}>
               <CardHeader>
-                <CardTitle className="text-gray-900 dark:text-white">Provider Info</CardTitle>
+                <CardTitle className="text-white text-xl">Provider Info</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                  <span className="text-gray-600 dark:text-gray-300 font-medium">Reputation</span>
+                <div className="flex items-center justify-between p-3 rounded-lg bg-white/5">
+                  <span className="text-gray-400 font-medium">Reputation</span>
                   <div className="flex items-center space-x-3">
                     <Progress value={89} className="w-20 h-2" />
-                    <span className="text-gray-900 dark:text-white text-sm font-medium">89%</span>
+                    <span className="text-white text-sm font-semibold">89%</span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                  <span className="text-gray-600 dark:text-gray-300 font-medium">Response Time</span>
-                  <span className="text-gray-900 dark:text-white font-medium">&lt; 5 minutes</span>
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                  <span className="text-gray-400 font-medium">Response Time</span>
+                  <span className="text-white font-semibold">&lt; 5 minutes</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                  <span className="text-gray-600 dark:text-gray-300 font-medium">Member Since</span>
-                  <span className="text-gray-900 dark:text-white font-medium">March 2023</span>
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                  <span className="text-gray-400 font-medium">Member Since</span>
+                  <span className="text-white font-semibold">March 2023</span>
                 </div>
-                <div className="flex justify-between items-center p-3 rounded-lg bg-gray-50 dark:bg-gray-700">
-                  <span className="text-gray-600 dark:text-gray-300 font-medium">Total GPUs</span>
-                  <span className="text-gray-900 dark:text-white font-medium">47</span>
+                <div className="flex justify-between items-center p-3 rounded-lg bg-white/5">
+                  <span className="text-gray-400 font-medium">Total GPUs</span>
+                  <span className="text-white font-semibold">47</span>
                 </div>
               </CardContent>
             </Card>
