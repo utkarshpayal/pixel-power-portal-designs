@@ -291,7 +291,7 @@ const GpuDetails = () => {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Response Time</span>
-                  <span className="text-white">< 5 minutes</span>
+                  <span className="text-white">&lt; 5 minutes</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-400">Member Since</span>
