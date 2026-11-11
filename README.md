@@ -1,73 +1,66 @@
-# Welcome to your Lovable project
+# DecentraGPU – Decentralized GPU Marketplace (UI designs)
 
-## Project info
+Front-end designs for **DecentraGPU**, a concept for a decentralized marketplace where users rent GPU compute from providers. It includes a landing page, a browsable GPU marketplace, GPU detail pages, a simulated command-line terminal and a user dashboard, styled with a dark neon theme.
 
-**URL**: https://lovable.dev/projects/6f234ffa-74f1-47ae-bae9-f379af65dfff
+> **Status:** UI prototype. GPU listings, account data, balances and terminal output are mock data defined in the page components. There is no backend, wallet integration or real rental logic.
 
-## How can I edit this code?
+## Pages
 
-There are several ways of editing your application.
+| Route | Page | Description |
+| --- | --- | --- |
+| `/` | Home | Hero, platform stats and feature highlights, with a link to browse GPUs |
+| `/marketplace` | Marketplace | GPU listings with search, sorting (price, performance, rating, availability) and filters |
+| `/gpu/:id` | GPU Details | Overview, technical specifications and reviews tabs, plus rental duration selection |
+| `/terminal` | Terminal | Simulated CLI (`decentragpu@terminal`) with system status and quick actions |
+| `/dashboard` | Dashboard | Rental history, active jobs/progress, account summary and wallet balance |
 
-**Use Lovable**
+### Terminal commands (simulated)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/6f234ffa-74f1-47ae-bae9-f379af65dfff) and start prompting.
+Type `help` in the terminal page to list the supported commands:
 
-Changes made via Lovable will be committed automatically to this repo.
+`list-gpus`, `rent <gpu-id>`, `status`, `balance`, `deploy <script>`, `logs`, `providers`, `benchmark <gpu-id>`, `clear`, `exit`
 
-**Use your preferred IDE**
+Responses are canned output generated in `src/pages/Terminal.tsx` after a short artificial delay.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## Tech stack
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- [Vite](https://vitejs.dev/) + React 18 + TypeScript
+- [Tailwind CSS](https://tailwindcss.com/) and [shadcn/ui](https://ui.shadcn.com/) (Radix UI primitives) in `src/components/ui`
+- React Router, TanStack Query provider, lucide-react icons
 
-Follow these steps:
+## Getting started
+
+Requirements: Node.js and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The dev server is configured in `vite.config.ts` to listen on port **8080**.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Scripts
 
-**Use GitHub Codespaces**
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server |
+| `npm run build` | Production build into `dist/` |
+| `npm run build:dev` | Build using development mode |
+| `npm run preview` | Preview the production build locally |
+| `npm run lint` | Run ESLint |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+No test script is configured.
 
-## What technologies are used for this project?
+## Configuration
 
-This project is built with:
+No environment variables are used.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Project structure
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/6f234ffa-74f1-47ae-bae9-f379af65dfff) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+```
+src/
+  App.tsx           # Routes
+  pages/            # Index, Marketplace, GpuDetails, Terminal, Dashboard, NotFound
+  components/       # Navigation + shadcn/ui components
+  hooks/, lib/      # Toast/mobile hooks and utility helpers
+```
